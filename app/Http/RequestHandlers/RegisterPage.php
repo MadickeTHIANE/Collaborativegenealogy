@@ -65,6 +65,7 @@ class RegisterPage implements RequestHandlerInterface
         $givenname = $request->getQueryParams()['givenname'] ?? '';
         $birthdate = $request->getQueryParams()['birthdate'] ?? '';
         $birthplace = $request->getQueryParams()['birthplace'] ?? '';
+        $justificatif = $request->getQueryParams()['justificatif'] ?? '';
 
         $show_caution = Site::getPreference('SHOW_REGISTER_CAUTION') === '1';
 
@@ -82,6 +83,7 @@ class RegisterPage implements RequestHandlerInterface
             'givenname'     => $givenname,
             'birthdate'     => $birthdate,
             'birthplace'     => $birthplace,
+            'justificatif'     => $justificatif,
         ]);
     }
 

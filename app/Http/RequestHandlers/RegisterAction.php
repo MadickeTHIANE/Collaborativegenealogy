@@ -36,6 +36,7 @@ use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\TreeUser;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Support\Str;
+use Intervention\Image\File;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -98,6 +99,7 @@ class RegisterAction implements RequestHandlerInterface
         $givenname = $params['givenname'] ?? '';
         $birthdate = $params['birthdate'] ?? '';
         $birthplace = $params['birthplace'] ?? '';
+        $justificatif = $params['justificatif'] ?? '';
 
 
         try {
@@ -105,7 +107,7 @@ class RegisterAction implements RequestHandlerInterface
                 throw new Exception(I18N::translate('Please try again.'));
             }
 
-            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $birthdate, $birthplace);
+            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $birthdate, $birthplace, $justificatif);
         } catch (Exception $ex) {
             FlashMessages::addMessage($ex->getMessage(), 'danger');
 
@@ -117,12 +119,13 @@ class RegisterAction implements RequestHandlerInterface
                 'givenname' => $givenname,
                 'birthdate' => $birthdate,
                 'birthplace' => $birthplace,
+                'justificatif' => $justificatif,
             ]));
         }
 
         Log::addAuthenticationLog('User registration requested for: ' . $username);
 
-        $user  = $this->user_service->create($username, $realname, $email, $password, $givenname, $birthdate, $birthplace);
+        $user  = $this->user_service->create($username, $realname, $email, $password, $givenname, $birthdate, $birthplace, $justificatif);
         $token = Str::random(32);
 
         $user->setPreference(UserInterface::PREF_LANGUAGE, I18N::languageTag());
@@ -237,10 +240,11 @@ class RegisterAction implements RequestHandlerInterface
      * @return void
      * @throws Exception
      */
-    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthplace): void
+    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthplace, string  $justificatif): void
+    /*Concernant le type de $justificatif, trouver duquel il s'agit. string est indiqué en attendant */
     {
         // All fields are required
-        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthdate == '' || $birthplace === '') {
+        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthdate == '' || $birthplace === '' || $justificatif === '') {
             throw new Exception(I18N::translate('All fields must be completed.'));
         }
 

@@ -107,6 +107,17 @@ use Fisharebest\Webtrees\View;
         </div>
     </div>
     <!-- **************************************************************** -->
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label wt-page-options-label" for="justificatif">
+            <?= I18N::translate('Justificatif') ?>
+        </label>
+        <div class="col-sm-9 wt-page-options-value">
+            <input class="form-control" type="file" id="justificatif" name="justificatif" required="required" maxlength="32" value="<?= e($justificatif) ?>" autocomplete="justificatif">
+            <p class="small text-muted">
+                <?= I18N::translate('Veuillez transmettre un justificatif (carte d\'identité, passeport, permis)') ?>
+            </p>
+        </div>
+    </div>
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="password">
