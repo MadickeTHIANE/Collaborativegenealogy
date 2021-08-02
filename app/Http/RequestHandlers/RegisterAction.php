@@ -252,7 +252,7 @@ class RegisterAction implements RequestHandlerInterface
     /*Concernant le type de $justificatif, trouver duquel il s'agit. string est indiqué en attendant */
     {
         // All fields are required
-        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthcountry == '' || $birthdate == '' || $birthregion === '' || $birthdepartment == '' || $birthplace == '' || $birthpostalcode == '' || $justificatif === '') {
+        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthcountry === '' || $birthdate === '' || $birthregion === '' || $birthdepartment === '' || $birthplace === '' || $birthpostalcode === '' || $justificatif === '') {
             throw new Exception(I18N::translate('All fields must be completed.'));
         }
 
