@@ -64,7 +64,12 @@ class RegisterPage implements RequestHandlerInterface
         $username = $request->getQueryParams()['username'] ?? '';
         $givenname = $request->getQueryParams()['givenname'] ?? '';
         $birthdate = $request->getQueryParams()['birthdate'] ?? '';
-        $birthplace = $request->getQueryParams()['birthplace'] ?? '';
+        $birthcountry = $request->getQueryParams()['birthcountry'] ?? '';
+        $birthregion = $request->getQueryParams()['birthregion'] ?? '';
+        $birthdepartment = $request->getQueryParams()['birthdepartment'] ?? '';
+        $birthcity = $request->getQueryParams()['birthcity'] ?? '';
+        $birthpostalcode = $request->getQueryParams()['birthpostalcode'] ?? '';
+        $justificatif = $request->getQueryParams()['justificatif'] ?? '';
 
         $show_caution = Site::getPreference('SHOW_REGISTER_CAUTION') === '1';
 
@@ -81,7 +86,12 @@ class RegisterPage implements RequestHandlerInterface
             'username'     => $username,
             'givenname'     => $givenname,
             'birthdate'     => $birthdate,
-            'birthplace'     => $birthplace,
+            'birthcountry'     => $birthcountry,
+            'birthregion'     => $birthregion,
+            'birthdepartment'     => $birthdepartment,
+            'birthcity'     => $birthcity,
+            'birthpostalcode'     => $birthpostalcode,
+            'justificatif'     => $justificatif,
         ]);
     }
 
