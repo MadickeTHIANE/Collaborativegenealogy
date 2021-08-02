@@ -67,7 +67,7 @@ class RegisterPage implements RequestHandlerInterface
         $birthcountry = $request->getQueryParams()['birthcountry'] ?? '';
         $birthregion = $request->getQueryParams()['birthregion'] ?? '';
         $birthdepartment = $request->getQueryParams()['birthdepartment'] ?? '';
-        $birthcity = $request->getQueryParams()['birthcity'] ?? '';
+        $birthplace = $request->getQueryParams()['birthplace'] ?? '';
         $birthpostalcode = $request->getQueryParams()['birthpostalcode'] ?? '';
         $justificatif = $request->getQueryParams()['justificatif'] ?? '';
 
@@ -89,7 +89,7 @@ class RegisterPage implements RequestHandlerInterface
             'birthcountry'     => $birthcountry,
             'birthregion'     => $birthregion,
             'birthdepartment'     => $birthdepartment,
-            'birthcity'     => $birthcity,
+            'birthplace'     => $birthplace,
             'birthpostalcode'     => $birthpostalcode,
             'justificatif'     => $justificatif,
         ]);

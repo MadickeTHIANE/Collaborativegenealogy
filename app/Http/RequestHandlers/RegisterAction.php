@@ -101,7 +101,7 @@ class RegisterAction implements RequestHandlerInterface
         $birthcountry = $params['birthcountry'] ?? '';
         $birthregion = $params['birthregion'] ?? '';
         $birthdepartment = $params['birthdepartment'] ?? '';
-        $birthcity = $params['birthcity'] ?? '';
+        $birthplace = $params['birthplace'] ?? '';
         $birthpostalcode = $params['birthpostalcode'] ?? '';
         $justificatif = $_FILES['justificatif'] ?? '';
 
@@ -111,7 +111,7 @@ class RegisterAction implements RequestHandlerInterface
                 throw new Exception(I18N::translate('Please try again.'));
             }
 
-            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $birthdate, $birthcountry, $birthregion, $birthdepartment, $birthcity, $birthpostalcode, $justificatif);
+            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $birthdate, $birthcountry, $birthregion, $birthdepartment, $birthplace, $birthpostalcode, $justificatif);
         } catch (Exception $ex) {
             FlashMessages::addMessage($ex->getMessage(), 'danger');
 
@@ -125,7 +125,7 @@ class RegisterAction implements RequestHandlerInterface
                 'birthcountry' => $birthcountry,
                 'birthregion' => $birthregion,
                 'birthdepartment' => $birthdepartment,
-                'birthcity' => $birthcity,
+                'birthplace' => $birthplace,
                 'birthpostalcode' => $birthpostalcode,
                 'justificatif' => $justificatif,
             ]));
@@ -248,11 +248,11 @@ class RegisterAction implements RequestHandlerInterface
      * @return void
      * @throws Exception
      */
-    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthcountry, string $birthregion, string $birthdepartment, string $birthcity, int $birthpostalcode, $justificatif): void
+    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthcountry, string $birthregion, string $birthdepartment, string $birthplace, int $birthpostalcode, $justificatif): void
     /*Concernant le type de $justificatif, trouver duquel il s'agit. string est indiqué en attendant */
     {
         // All fields are required
-        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthcountry == '' || $birthdate == '' || $birthregion === '' || $birthdepartment == '' || $birthcity == '' || $birthpostalcode == '' || $justificatif === '') {
+        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthcountry == '' || $birthdate == '' || $birthregion === '' || $birthdepartment == '' || $birthplace == '' || $birthpostalcode == '' || $justificatif === '') {
             throw new Exception(I18N::translate('All fields must be completed.'));
         }
 
