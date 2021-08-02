@@ -31,6 +31,8 @@ use Fisharebest\Webtrees\View;
     <?= csrf_field() ?>
     <?= $captcha ?>
 
+    <!-- Nom de famille -->
+
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="realname">
             <?= I18N::translate('Nom de famille') ?>
@@ -43,7 +45,8 @@ use Fisharebest\Webtrees\View;
         </div>
     </div>
 
-    <!-- **************************************************************** -->
+    <!-- Prénom usuel-->
+
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="givenname">
             <?= I18N::translate('Prénom') ?>
@@ -55,7 +58,10 @@ use Fisharebest\Webtrees\View;
             </p>
         </div>
     </div>
-    <!-- **************************************************************** -->
+
+    <!-- Prénoms d'état civil -->
+
+    <!-- Email address -->
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="email">
@@ -68,6 +74,8 @@ use Fisharebest\Webtrees\View;
             </p>
         </div>
     </div>
+
+    <!-- Pseudo -->
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="username">
@@ -82,7 +90,8 @@ use Fisharebest\Webtrees\View;
     </div>
 
 
-    <!-- **************************************************************** -->
+    <!-- Date de naissance -->
+
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="birthdate">
             <?= I18N::translate('Date de naissance') ?>
@@ -95,18 +104,77 @@ use Fisharebest\Webtrees\View;
         </div>
     </div>
 
+    <!-- Pays de naissance -->
+
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label wt-page-options-label" for="birthplace">
-            <?= I18N::translate('Lieu de naissance') ?>
+        <label class="col-sm-3 col-form-label wt-page-options-label" for="birthcountry">
+            <?= I18N::translate('Pays de naissance') ?>
         </label>
+
         <div class="col-sm-9 wt-page-options-value">
-            <input class="form-control" type="text" id="birthplace" name="birthplace" required="required" maxlength="32" value="<?= e($birthplace) ?>" autocomplete="birthplace">
+            <input class="form-control" type="text" id="birthcountry" name="birthcountry" required="required" maxlength="32" value="<?= e($birthcountry) ?>" autocomplete="birthcountry">
             <p class="small text-muted">
-                <?= I18N::translate('Veuillez indiquer votre lieu de naissance.') ?>
+                <?= I18N::translate('Veuillez indiquer votre pays de naissance.') ?>
             </p>
         </div>
     </div>
-    <!-- **************************************************************** -->
+
+    <!-- Région de naissance -->
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label wt-page-options-label" for="birthregion">
+            <?= I18N::translate('Région de naissance') ?>
+        </label>
+
+        <div class="col-sm-9 wt-page-options-value">
+            <input class="form-control" type="text" id="birthregion" name="birthregion" required="required" maxlength="32" value="<?= e($birthregion) ?>" autocomplete="birthregion">
+            <p class="small text-muted">
+                <?= I18N::translate('Veuillez indiquer votre région de naissance.') ?>
+            </p>
+        </div>
+    </div>
+
+    <!-- Département de naissance -->
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label wt-page-options-label" for="birthdepartment">
+            <?= I18N::translate('Département de naissance') ?>
+        </label>
+
+        <div class="col-sm-9 wt-page-options-value">
+            <input class="form-control" type="text" id="birthdepartment" name="birthdepartment" required="required" maxlength="32" value="<?= e($birthdepartment) ?>" autocomplete="birthdepartment">
+            <p class="small text-muted">
+                <?= I18N::translate('Veuillez indiquer votre département de naissance.') ?>
+            </p>
+        </div>
+    </div>
+
+    <!-- Ville de naissance -->
+
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label wt-page-options-label" for="birthcity">
+            <?= I18N::translate('Ville de naissance') ?>
+        </label>
+
+        <div class="col-sm-5 wt-page-options-value">
+            <input class="form-control" type="text" id="birthcity" name="birthcity" required="required" maxlength="32" value="<?= e($birthcity) ?>" autocomplete="birthcity">
+            <p class="small text-muted">
+                <?= I18N::translate('Veuillez indiquer votre ville de naissance.') ?>
+            </p>
+        </div>
+
+        <!-- Code postal -->
+
+        <div class="col-sm-4 wt-page-options-value">
+            <input class="form-control" type="number" id="birthpostalcode" name="birthpostalcode" required="required" maxlength="32" value="<?= e($birthpostalcode) ?>" autocomplete="birthpostalcode">
+            <p class="small text-muted">
+                <?= I18N::translate('Veuillez indiquer le code postal.') ?>
+            </p>
+        </div>
+    </div>
+
+    <!-- Justificatif -->
+
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="justificatif">
             <?= I18N::translate('Justificatif') ?>
@@ -118,6 +186,8 @@ use Fisharebest\Webtrees\View;
             </p>
         </div>
     </div>
+
+    <!-- Mot de passe -->
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="password">
@@ -131,6 +201,8 @@ use Fisharebest\Webtrees\View;
             </p>
         </div>
     </div>
+
+    <!-- Commentaire -->
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="comment">
