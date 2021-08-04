@@ -49,7 +49,7 @@ use Fisharebest\Webtrees\View;
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label wt-page-options-label" for="givenname">
-            <?= I18N::translate('Prénom') ?>
+            <?= I18N::translate('Prénom usuel') ?>
         </label>
         <div class="col-sm-9 wt-page-options-value">
             <input class="form-control" type="text" id="givenname" name="givenname" required="required" maxlength="32" value="<?= e($givenname) ?>" autocomplete="givenname">
@@ -60,6 +60,27 @@ use Fisharebest\Webtrees\View;
     </div>
 
     <!-- Prénoms d'état civil -->
+
+    <?php
+    $civilnames = [];
+    // $index = 0;
+    ?>
+    <div class="form-group row">
+        <label class="col-sm-3 col-form-label wt-page-options-label" for="civilnames">
+            <?= I18N::translate('Prénom(s) d\'état civil') ?>
+        </label>
+        <div class="col-sm-9 wt-page-options-value">
+            <input class="form-control" type="text" id="civilnames 0" name="civilnames" maxlength="32" value="<?= e($civilnames) ?>" autocomplete="civilnames">
+
+            <p class="small text-muted" id="indication">
+                <?= I18N::translate('Indiquez les autres prénoms figurant sur vos piéces d\'identité.') ?>
+            </p>
+            <!--//* Possibilité d'ajouter un champ permettant d'ajouter un prénom supplémentaire -->
+            <span>
+                <div id="addCivilname" style="cursor: pointer;">Ajouter un prénom</div>
+            </span>
+        </div>
+    </div>
 
     <!-- Email address -->
 
@@ -227,8 +248,19 @@ use Fisharebest\Webtrees\View;
         </div>
 </form>
 
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  -->
 <?php View::push('javascript') ?>
 <script>
     $("#password").hideShowPassword("infer", true);
+
+    var index = 1;
+    $("#addCivilname").on("click", function() {
+        let champ = `<input class="form-control" type="text" id="civilnames ${index}" name="civilnames" maxlength="32" value="<?= e($civilnames) ?>" autocomplete="civilnames">`;
+        $("#indication").before(champ);
+        console.log(index)
+        index = index + 1;
+        console.log(index)
+    });
 </script>
 <?php View::endpush() ?>

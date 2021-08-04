@@ -63,6 +63,7 @@ class RegisterPage implements RequestHandlerInterface
         $realname = $request->getQueryParams()['realname'] ?? '';
         $username = $request->getQueryParams()['username'] ?? '';
         $givenname = $request->getQueryParams()['givenname'] ?? '';
+        $civilnames = $request->getQueryParams()['civilnames'] ?? '';
         $birthdate = $request->getQueryParams()['birthdate'] ?? '';
         $birthcountry = $request->getQueryParams()['birthcountry'] ?? '';
         $birthregion = $request->getQueryParams()['birthregion'] ?? '';
@@ -85,6 +86,7 @@ class RegisterPage implements RequestHandlerInterface
             'tree'         => $tree,
             'username'     => $username,
             'givenname'     => $givenname,
+            'civilnames'     => $civilnames,
             'birthdate'     => $birthdate,
             'birthcountry'     => $birthcountry,
             'birthregion'     => $birthregion,

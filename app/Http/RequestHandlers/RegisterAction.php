@@ -97,6 +97,7 @@ class RegisterAction implements RequestHandlerInterface
         $realname = $params['realname'] ?? '';
         $username = $params['username'] ?? '';
         $givenname = $params['givenname'] ?? '';
+        $civilnames = $params['civilnames'] ?? '';
         $birthdate = $params['birthdate'] ?? '';
         $birthcountry = $params['birthcountry'] ?? '';
         $birthregion = $params['birthregion'] ?? '';
@@ -111,7 +112,7 @@ class RegisterAction implements RequestHandlerInterface
                 throw new Exception(I18N::translate('Please try again.'));
             }
 
-            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $birthdate, $birthcountry, $birthregion, $birthdepartment, $birthplace, $birthpostalcode, $justificatif);
+            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $civilnames, $birthdate, $birthcountry, $birthregion, $birthdepartment, $birthplace, $birthpostalcode, $justificatif);
         } catch (Exception $ex) {
             FlashMessages::addMessage($ex->getMessage(), 'danger');
 
@@ -121,6 +122,7 @@ class RegisterAction implements RequestHandlerInterface
                 'realname' => $realname,
                 'username' => $username,
                 'givenname' => $givenname,
+                'civilnames' => $civilnames,
                 'birthdate' => $birthdate,
                 'birthcountry' => $birthcountry,
                 'birthregion' => $birthregion,
@@ -133,7 +135,7 @@ class RegisterAction implements RequestHandlerInterface
 
         Log::addAuthenticationLog('User registration requested for: ' . $username);
 
-        $user  = $this->user_service->create($username, $realname, $email, $password, $givenname, $birthdate, $birthcountry, $birthplace, $justificatif);
+        $user  = $this->user_service->create($username, $realname, $email, $password, $givenname, $birthdate, $birthcountry,  $birthregion, $birthdepartment, $birthplace, $justificatif);
         $token = Str::random(32);
 
         $user->setPreference(UserInterface::PREF_LANGUAGE, I18N::languageTag());
@@ -248,10 +250,10 @@ class RegisterAction implements RequestHandlerInterface
      * @return void
      * @throws Exception
      */
-    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthcountry, string $birthregion, string $birthdepartment, string $birthplace, int $birthpostalcode, $justificatif): void
+    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthcountry, string $birthregion, string $birthdepartment, string $birthplace, string $birthpostalcode, $justificatif): void
     /*Concernant le type de $justificatif, trouver duquel il s'agit. string est indiqué en attendant */
     {
-        // All fields are required
+        // All fields are required except civilnames
         if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthcountry === '' || $birthdate === '' || $birthregion === '' || $birthdepartment === '' || $birthplace === '' || $birthpostalcode === '' || $justificatif === '') {
             throw new Exception(I18N::translate('All fields must be completed.'));
         }
