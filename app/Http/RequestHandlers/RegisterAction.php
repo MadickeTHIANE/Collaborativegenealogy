@@ -36,6 +36,7 @@ use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\TreeUser;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Support\Str;
+use Intervention\Image\File;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -96,8 +97,14 @@ class RegisterAction implements RequestHandlerInterface
         $realname = $params['realname'] ?? '';
         $username = $params['username'] ?? '';
         $givenname = $params['givenname'] ?? '';
+        $civilnames = $params['civilnames'] ?? '';
         $birthdate = $params['birthdate'] ?? '';
+        $birthcountry = $params['birthcountry'] ?? '';
+        $birthregion = $params['birthregion'] ?? '';
+        $birthdepartment = $params['birthdepartment'] ?? '';
         $birthplace = $params['birthplace'] ?? '';
+        $birthpostalcode = $params['birthpostalcode'] ?? '';
+        $justificatif = $_FILES['justificatif'] ?? '';
 
 
         try {
@@ -105,7 +112,7 @@ class RegisterAction implements RequestHandlerInterface
                 throw new Exception(I18N::translate('Please try again.'));
             }
 
-            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $birthdate, $birthplace);
+            $this->doValidateRegistration($request, $username, $email, $realname, $comment, $password, $givenname, $civilnames, $birthdate, $birthcountry, $birthregion, $birthdepartment, $birthplace, $birthpostalcode, $justificatif);
         } catch (Exception $ex) {
             FlashMessages::addMessage($ex->getMessage(), 'danger');
 
@@ -115,14 +122,20 @@ class RegisterAction implements RequestHandlerInterface
                 'realname' => $realname,
                 'username' => $username,
                 'givenname' => $givenname,
+                'civilnames' => $civilnames,
                 'birthdate' => $birthdate,
+                'birthcountry' => $birthcountry,
+                'birthregion' => $birthregion,
+                'birthdepartment' => $birthdepartment,
                 'birthplace' => $birthplace,
+                'birthpostalcode' => $birthpostalcode,
+                'justificatif' => $justificatif,
             ]));
         }
 
         Log::addAuthenticationLog('User registration requested for: ' . $username);
 
-        $user  = $this->user_service->create($username, $realname, $email, $password, $givenname, $birthdate, $birthplace);
+        $user  = $this->user_service->create($username, $realname, $email, $password, $givenname, $birthdate, $birthcountry,  $birthregion, $birthdepartment, $birthplace, $justificatif);
         $token = Str::random(32);
 
         $user->setPreference(UserInterface::PREF_LANGUAGE, I18N::languageTag());
@@ -237,10 +250,11 @@ class RegisterAction implements RequestHandlerInterface
      * @return void
      * @throws Exception
      */
-    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthplace): void
+    private function doValidateRegistration(ServerRequestInterface $request, string $username, string $email, string $realname, string $comments, string $password, string $givenname, string $birthdate, string $birthcountry, string $birthregion, string $birthdepartment, string $birthplace, string $birthpostalcode, $justificatif): void
+    /*Concernant le type de $justificatif, trouver duquel il s'agit. string est indiqué en attendant */
     {
-        // All fields are required
-        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthdate == '' || $birthplace === '') {
+        // All fields are required except civilnames
+        if ($username === '' || $email === '' || $realname === '' || $comments === '' || $password === '' || $givenname === '' || $birthcountry === '' || $birthdate === '' || $birthregion === '' || $birthdepartment === '' || $birthplace === '' || $birthpostalcode === '' || $justificatif === '') {
             throw new Exception(I18N::translate('All fields must be completed.'));
         }
 
@@ -260,5 +274,9 @@ class RegisterAction implements RequestHandlerInterface
         if (preg_match('/(?!' . preg_quote($base_url, '/') . ')(((?:http|https):\/\/)[a-zA-Z0-9.-]+)/', $comments, $match)) {
             throw new Exception(I18N::translate('You are not allowed to send messages that contain external links.') . ' ' . I18N::translate('You should delete the “%1$s” from “%2$s” and try again.', e($match[2]), e($match[1])));
         }
+
+        // Password must at least have 8 characters, one uppercase letter, one lowercase letter and one number at least
+
+
     }
 }
